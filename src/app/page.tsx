@@ -3,9 +3,14 @@ import { LpTokenTable } from "@/components/lp-token-table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
+import { formatUnits } from "viem";
 
 export default async function Home() {
   const chefData = await getChefData();
+
+  const monthlyReward = chefData
+    ? (chefData.rewardTokenPerSecond * 31536000n) / 12n
+    : 0n;
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -37,13 +42,39 @@ export default async function Home() {
               {" "}contract. Click headers to sort.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          
+          {chefData && (
+            <div className="px-6 border-b pb-4">
+              <div className="space-y-1 text-sm text-muted-foreground">
+                <p>
+                  <span className="font-semibold text-foreground">AmmRewards Contract:</span>{" "}
+                  <a
+                    href={`https://berascan.com/address/${chefData.ammRewardsAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-primary hover:underline"
+                  >
+                    {chefData.ammRewardsAddress}
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">Reward Tokens / Second:</span>{" "}
+                  {formatUnits(chefData.rewardTokenPerSecond, 18)}{" "}
+                  {chefData.rewardTokenSymbol}
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">Expected Reward Tokens / Month:</span>{" "}
+                  {formatUnits(monthlyReward, 18)}{" "}
+                  {chefData.rewardTokenSymbol}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <CardContent className="pt-6">
             {chefData ? (
               <LpTokenTable
                 data={chefData.lpTokens}
-                ammRewardsAddress={chefData.ammRewardsAddress}
-                rewardTokenPerSecond={chefData.rewardTokenPerSecond}
-                rewardTokenSymbol={chefData.rewardTokenSymbol}
               />
             ) : (
               <Alert>
