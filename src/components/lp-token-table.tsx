@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { formatUnits } from "viem";
 import { ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -9,7 +10,7 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
+  TableHead, TableCaption,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
@@ -25,9 +26,12 @@ interface SortDescriptor {
 
 interface LpTokenTableProps {
   data: LpToken[];
+  ammRewardsAddress: string;
+  rewardTokenPerSecond: bigint;
+  rewardTokenSymbol: string;
 }
 
-export function LpTokenTable({ data }: LpTokenTableProps) {
+export function LpTokenTable({ data, ammRewardsAddress, rewardTokenPerSecond, rewardTokenSymbol }: LpTokenTableProps) {
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "index",
     direction: "asc",
@@ -78,8 +82,18 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
     );
   };
 
-  const columns: { key: SortKey; label: string; className?: string, headerClassName?: string }[] = [
-    { key: "index", label: "Index", className: "w-24 font-medium" },
+  const columns: {
+    key: SortKey;
+    label: string;
+    className?: string;
+    headerClassName?: string;
+  }[] = [
+    {
+      key: "index",
+      label: "Index",
+      className: "w-24 font-medium",
+      headerClassName: "justify-start",
+    },
     { key: "symbol", label: "Symbol", className: "w-48" },
     { key: "address", label: "Address" },
     { key: "allocPoint", label: "Allocation Points", className: "w-48 text-right", headerClassName: "justify-end" },
@@ -88,6 +102,31 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
   return (
     <div className="rounded-md border">
       <Table>
+        <TableCaption>
+          <div className="flex flex-col gap-y-1 items-start text-left text-muted-foreground p-2">
+            <p>
+              AmmRewards Contract:{" "}
+              <a
+                href={`https://berascan.com/address/${ammRewardsAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                {ammRewardsAddress}
+              </a>
+            </p>
+            <p>
+              Reward Tokens / Second:{" "}
+              {formatUnits(rewardTokenPerSecond, 18)}{" "}
+              {rewardTokenSymbol}
+            </p>
+            <p>
+              Expected Reward Tokens / Month:{" "}
+              {formatUnits(rewardTokenPerSecond * BigInt(60 * 60 * 24 * 30), 18)}{" "}
+              {rewardTokenSymbol}
+            </p>
+          </div>
+        </TableCaption>
         <TableHeader>
           <TableRow>
             {columns.map((column) => (

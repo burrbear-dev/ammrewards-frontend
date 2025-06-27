@@ -1,9 +1,9 @@
 import { createPublicClient, http, defineChain } from 'viem';
-import type { LpToken } from './types';
+import type { ChefData, LpToken } from './types';
 
 const berachain = defineChain({
   id: 80085,
-  name: 'Berachain Mainnet',
+  name: 'Berachain Artio',
   nativeCurrency: {
     decimals: 18,
     name: 'BERA',
@@ -52,6 +52,20 @@ const miniChefAbi = [
     stateMutability: 'view',
     type: 'function',
   },
+  {
+    inputs: [],
+    name: 'bera',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'beraPerSecond',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
 ] as const;
 
 const erc20Abi = [
@@ -64,12 +78,31 @@ const erc20Abi = [
   },
 ] as const;
 
-export async function getLpTokens(): Promise<LpToken[]> {
+export async function getChefData(): Promise<ChefData | null> {
   try {
-    const poolLength = await publicClient.readContract({
-      address: miniChefAddress,
-      abi: miniChefAbi,
-      functionName: 'poolLength',
+    const [poolLength, rewardTokenPerSecond, rewardTokenAddress] =
+      await Promise.all([
+        publicClient.readContract({
+          address: miniChefAddress,
+          abi: miniChefAbi,
+          functionName: 'poolLength',
+        }),
+        publicClient.readContract({
+          address: miniChefAddress,
+          abi: miniChefAbi,
+          functionName: 'beraPerSecond',
+        }),
+        publicClient.readContract({
+          address: miniChefAddress,
+          abi: miniChefAbi,
+          functionName: 'bera',
+        }),
+      ]);
+
+    const rewardTokenSymbol = await publicClient.readContract({
+      address: rewardTokenAddress,
+      abi: erc20Abi,
+      functionName: 'symbol',
     });
 
     const poolIndexes = Array.from({ length: Number(poolLength) }, (_, i) => i);
@@ -120,9 +153,16 @@ export async function getLpTokens(): Promise<LpToken[]> {
       })
     );
 
-    return lpTokensData.filter((token): token is LpToken => token !== null);
+    const lpTokens = lpTokensData.filter((token): token is LpToken => token !== null);
+    
+    return {
+      lpTokens,
+      ammRewardsAddress: miniChefAddress,
+      rewardTokenPerSecond,
+      rewardTokenSymbol,
+    };
   } catch (error) {
-    console.error('Failed to fetch LP tokens:', error);
-    return [];
+    console.error('Failed to fetch chef data:', error);
+    return null;
   }
 }

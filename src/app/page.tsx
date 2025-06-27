@@ -1,11 +1,11 @@
-import { getLpTokens } from "@/lib/berachain";
+import { getChefData } from "@/lib/berachain";
 import { LpTokenTable } from "@/components/lp-token-table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
 
 export default async function Home() {
-  const lpTokens = await getLpTokens();
+  const chefData = await getChefData();
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -38,8 +38,13 @@ export default async function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {lpTokens.length > 0 ? (
-              <LpTokenTable data={lpTokens} />
+            {chefData ? (
+              <LpTokenTable
+                data={chefData.lpTokens}
+                ammRewardsAddress={chefData.ammRewardsAddress}
+                rewardTokenPerSecond={chefData.rewardTokenPerSecond}
+                rewardTokenSymbol={chefData.rewardTokenSymbol}
+              />
             ) : (
               <Alert>
                 <Terminal className="h-4 w-4" />
