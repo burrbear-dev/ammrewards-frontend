@@ -11,7 +11,7 @@ const berachain = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://mainnet.berachain.io/http'],
+      http: ['https://rpc.berachain.io/'],
     },
   },
   blockExplorers: {
