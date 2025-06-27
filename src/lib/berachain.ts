@@ -54,7 +54,7 @@ const miniChefAbi = [
   },
   {
     inputs: [],
-    name: 'rewardToken',
+    name: 'REWARD_TOKEN',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
@@ -95,7 +95,7 @@ export async function getChefData(): Promise<ChefData | null> {
         publicClient.readContract({
           address: miniChefAddress,
           abi: miniChefAbi,
-          functionName: 'rewardToken',
+          functionName: 'REWARD_TOKEN',
         }),
       ]);
 
