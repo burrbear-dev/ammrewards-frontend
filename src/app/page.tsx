@@ -26,67 +26,77 @@ export default async function Home() {
       </header>
 
       <main className="flex-grow container mx-auto px-4 md:px-6 pb-12">
-        <Card className="w-full shadow-lg">
-          <CardHeader>
-            <CardTitle>Liquidity Pool Allocations</CardTitle>
-            <CardDescription>
-              A list of pools from the{" "}
-              <a
-                href="https://berascan.com/address/0x7a2be8e74f4ae28796828af7b685def78c20416c"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-primary hover:underline"
-              >
-                MiniChefV2
-              </a>
-              {" "}contract. Click headers to sort.
-            </CardDescription>
-          </CardHeader>
-          
+        <div className="space-y-8">
           {chefData && (
-            <div className="px-6 border-b pb-4">
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>
-                  <span className="font-semibold text-foreground">AmmRewards Contract:</span>{" "}
-                  <a
-                    href={`https://berascan.com/address/${chefData.ammRewardsAddress}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-primary hover:underline"
-                  >
-                    {chefData.ammRewardsAddress}
-                  </a>
-                </p>
-                <p>
-                  <span className="font-semibold text-foreground">Reward Tokens / Second:</span>{" "}
-                  {formatUnits(chefData.rewardTokenPerSecond, 18)}{" "}
-                  {chefData.rewardTokenSymbol}
-                </p>
-                <p>
-                  <span className="font-semibold text-foreground">Expected Reward Tokens / Month:</span>{" "}
-                  {formatUnits(monthlyReward, 18)}{" "}
-                  {chefData.rewardTokenSymbol}
-                </p>
-              </div>
-            </div>
+            <Card className="w-full shadow-lg">
+              <CardHeader>
+                <CardTitle>Reward Contract Details</CardTitle>
+                <CardDescription>
+                  Key information about the MiniChefV2 rewards contract.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>
+                    <span className="font-semibold text-foreground">AmmRewards Contract:</span>{" "}
+                    <a
+                      href={`https://berascan.com/address/${chefData.ammRewardsAddress}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-primary hover:underline"
+                    >
+                      {chefData.ammRewardsAddress}
+                    </a>
+                  </p>
+                  <p>
+                    <span className="font-semibold text-foreground">Reward Tokens / Second:</span>{" "}
+                    {formatUnits(chefData.rewardTokenPerSecond, 18)}{" "}
+                    {chefData.rewardTokenSymbol}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-foreground">Expected Reward Tokens / Month:</span>{" "}
+                    {formatUnits(monthlyReward, 18)}{" "}
+                    {chefData.rewardTokenSymbol}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           )}
 
-          <CardContent className="pt-6">
-            {chefData ? (
-              <LpTokenTable
-                data={chefData.lpTokens}
-              />
-            ) : (
-              <Alert>
-                <Terminal className="h-4 w-4" />
-                <AlertTitle>Could Not Fetch Data</AlertTitle>
-                <AlertDescription>
-                  There was an issue retrieving data from the Berachain smart contract. Please try again later.
-                </AlertDescription>
-              </Alert>
-            )}
-          </CardContent>
-        </Card>
+          <Card className="w-full shadow-lg">
+            <CardHeader>
+              <CardTitle>Liquidity Pool Allocations</CardTitle>
+              <CardDescription>
+                A list of pools from the{" "}
+                <a
+                  href="https://berascan.com/address/0x7a2be8e74f4ae28796828af7b685def78c20416c"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary hover:underline"
+                >
+                  MiniChefV2
+                </a>
+                {" "}contract. Click headers to sort.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              {chefData ? (
+                <LpTokenTable
+                  data={chefData.lpTokens}
+                />
+              ) : (
+                <Alert>
+                  <Terminal className="h-4 w-4" />
+                  <AlertTitle>Could Not Fetch Data</AlertTitle>
+                  <AlertDescription>
+                    There was an issue retrieving data from the Berachain smart contract. Please try again later.
+                  </AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </main>
       
       <footer className="py-6 text-center text-sm text-muted-foreground">
