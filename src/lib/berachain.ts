@@ -11,7 +11,7 @@ const berachain = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.ankr.com/berachain'],
+      http: ['https://rpc.berachain.com/'],
     },
   },
   blockExplorers: {
