@@ -101,7 +101,7 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
         <TableHeader>
           <TableRow>
             {columns.map((column) => (
-              <TableHead key={column.key} className={cn(column.className)}>
+              <TableHead key={column.key} className={cn(column.className, "px-2")}>
                 <Button variant="ghost" onClick={() => onSortChange(column.key)} className={cn("w-full", column.headerClassName)}>
                   {column.label}
                   {renderSortIcon(column.key)}
@@ -114,9 +114,9 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
           {sortedItems.length > 0 ? (
             sortedItems.map((item) => (
               <TableRow key={item.index}>
-                <TableCell className={cn(columns[0].className)}>{item.index}</TableCell>
-                <TableCell className={cn(columns[1].className)}>{item.symbol}</TableCell>
-                <TableCell className={cn(columns[2].className)}>
+                <TableCell className={cn(columns[0].className, "p-2")}>{item.index}</TableCell>
+                <TableCell className={cn(columns[1].className, "p-2")}>{item.symbol}</TableCell>
+                <TableCell className={cn(columns[2].className, "p-2")}>
                   <a
                     href={`https://berascan.com/address/${item.address}`}
                     target="_blank"
@@ -126,12 +126,12 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
                     {item.address}
                   </a>
                 </TableCell>
-                <TableCell className={cn(columns[3].className)}>{item.allocPoint}</TableCell>
+                <TableCell className={cn(columns[3].className, "p-2")}>{item.allocPoint}</TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className="h-24 text-center p-2">
                 No results.
               </TableCell>
             </TableRow>
