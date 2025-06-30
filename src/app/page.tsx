@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
 import { formatUnits } from "viem";
+import { RewardCalculator } from "@/components/reward-calculator";
 
 export default async function Home() {
   const chefData = await getChefData();
@@ -27,7 +28,8 @@ export default async function Home() {
 
       <main className="flex-grow container mx-auto px-4 md:px-6 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-8">
+            <RewardCalculator />
             {chefData && (
               <Card className="w-full shadow-lg">
                 <CardHeader>
