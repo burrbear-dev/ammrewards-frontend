@@ -53,7 +53,7 @@ export function RewardCalculator() {
   };
 
   return (
-    <Card className="w-full shadow-lg">
+    <Card className="w-full shadow-lg bg-muted">
       <CardHeader>
         <CardTitle>Reward Token Calculator</CardTitle>
         <CardDescription>
@@ -73,7 +73,7 @@ export function RewardCalculator() {
             />
           </div>
           {rewardPerSecond !== null && (
-            <div className="space-y-4 rounded-lg bg-muted p-4">
+            <div className="space-y-4 rounded-lg bg-background p-4">
                <div>
                 <Label className="text-xs text-muted-foreground">Decimal Value</Label>
                 <p className="font-mono text-lg text-foreground break-all">
