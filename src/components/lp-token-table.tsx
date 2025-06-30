@@ -121,7 +121,7 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
                     href={`https://berascan.com/address/${item.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline"
+                    className="font-mono text-primary hover:underline"
                   >
                     {item.address}
                   </a>
