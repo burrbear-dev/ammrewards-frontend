@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'BeraLpView',
-  description: 'View LP token information on Berachain',
+  title: 'AmmRewards',
+  description: 'A viewer for AMM rewards on Berachain.',
 };
 
 export default function RootLayout({

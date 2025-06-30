@@ -18,11 +18,8 @@ export default async function Home() {
       <header className="py-10">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary font-headline">
-            BeraLpView
+            AmmRewards
           </h1>
-          <p className="mt-3 max-w-2xl mx-auto text-lg text-muted-foreground">
-            A simple viewer for LP token allocation points on Berachain.
-          </p>
         </div>
       </header>
 
@@ -105,7 +102,7 @@ export default async function Home() {
       </main>
       
       <footer className="py-6 text-center text-sm text-muted-foreground">
-        <p>BeraLpView - Exploring Berachain onchain data.</p>
+        <p>AmmRewards - Exploring Berachain onchain data.</p>
       </footer>
     </div>
   );
