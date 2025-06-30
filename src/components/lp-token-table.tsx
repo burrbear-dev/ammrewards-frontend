@@ -90,8 +90,8 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
       className: "w-24 font-medium",
       headerClassName: "justify-start",
     },
-    { key: "symbol", label: "Symbol", className: "w-48" },
     { key: "address", label: "Address", className: "font-mono" },
+    { key: "symbol", label: "Symbol", className: "w-48" },
     { key: "allocPoint", label: "Alloc Points", className: "w-40 text-right", headerClassName: "justify-end" },
   ];
 
@@ -115,7 +115,6 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
             sortedItems.map((item) => (
               <TableRow key={item.index}>
                 <TableCell className={cn(columns[0].className, "p-2")}>{item.index}</TableCell>
-                <TableCell className={cn(columns[1].className, "p-2", "whitespace-nowrap")}>{item.symbol}</TableCell>
                 <TableCell className={cn(columns[2].className, "p-2")}>
                   <a
                     href={`https://berascan.com/address/${item.address}`}
@@ -126,6 +125,7 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
                     {item.address}
                   </a>
                 </TableCell>
+                <TableCell className={cn(columns[1].className, "p-2", "whitespace-nowrap")}>{item.symbol}</TableCell>
                 <TableCell className={cn(columns[3].className, "p-2")}>{item.allocPoint}</TableCell>
               </TableRow>
             ))
