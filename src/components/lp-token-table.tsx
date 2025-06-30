@@ -92,7 +92,7 @@ export function LpTokenTable({ data }: LpTokenTableProps) {
     },
     { key: "symbol", label: "Symbol", className: "w-48" },
     { key: "address", label: "Address" },
-    { key: "allocPoint", label: "Allocation Points", className: "w-48 text-right", headerClassName: "justify-end" },
+    { key: "allocPoint", label: "Alloc Points", className: "w-40 text-right", headerClassName: "justify-end" },
   ];
 
   return (
