@@ -29,7 +29,6 @@ export default async function Home() {
       <main className="flex-grow container mx-auto px-4 md:px-6 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-1 space-y-8">
-            <RewardCalculator />
             {chefData && (
               <Card className="w-full shadow-lg">
                 <CardHeader>
@@ -65,6 +64,7 @@ export default async function Home() {
                 </CardContent>
               </Card>
             )}
+            <RewardCalculator />
           </div>
           <div className="lg:col-span-2">
             <Card className="w-full shadow-lg">
