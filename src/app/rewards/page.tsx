@@ -5,12 +5,12 @@ import { useEffect } from "react";
 
 const DEFAULT_ADDRESS = "0x7a2be8e74f4ae28796828af7b685def78c20416c";
 
-export default function Home() {
+export default function RewardsPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to the default address page
-    router.replace(`/${encodeURIComponent(DEFAULT_ADDRESS)}`);
+    // Redirect to the default address rewards page
+    router.replace(`/${encodeURIComponent(DEFAULT_ADDRESS)}/rewards`);
   }, [router]);
 
   // Show loading state while redirecting

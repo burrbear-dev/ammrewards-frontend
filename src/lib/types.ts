@@ -11,3 +11,24 @@ export interface ChefData {
   rewardTokenPerSecond: bigint;
   rewardTokenSymbol: string;
 }
+
+export interface PoolBalance {
+  poolId: number;
+  poolSymbol: string;
+  balance: string;
+  formattedBalance: string; // "{SYMBOL} XX.XX"
+}
+
+export interface LpRewardData {
+  walletAddress: string; // Can be either 0x address or name tag
+  stakedBalances: PoolBalance[];
+  pendingRewards: PoolBalance[];
+  totalPendingRewards: string;
+}
+
+export interface RewardsSummaryData {
+  totalLPs: number;
+  totalOwedAmount: string;
+  contractRewardBalance: string;
+  rewardTokenSymbol: string;
+}
